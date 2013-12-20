@@ -3,7 +3,7 @@ Section: admin
 Priority: extra
 Maintainer: Knut Ahlers <knut@ahlers.me>
 Build-Depends: debhelper (>= 8.0.0), golang-go, git-core, mercurial
-Standards-Version: 3.9.2
+Standards-Version: 3.9.1
 Homepage: https://github.com/Luzifer/check_kyocera_fs5150
 Vcs-Git: git://github.com/Luzifer/check_kyocera_fs5150
 
