@@ -71,6 +71,8 @@ func getMessageForTonerLevel(color string, level int) string {
 	switch {
 	case level >= 0:
 		return fmt.Sprintf("%s is at %d%%", color, level)
+	case level == -2:
+		return fmt.Sprintf("%s is not present", color)
 	default:
 		return fmt.Sprintf("%s has an unknown state")
 	}
@@ -106,7 +108,11 @@ func getTonerLevel(hostname, community string) (tonerlevels, error) {
 		}
 		currentLevel := resp.Variables[0].Value.(int)
 
-		levels[color] = int(math.Floor(float64(currentLevel) / float64(maxLevel) * 100.0))
+		if maxLevel > 0 {
+			levels[color] = int(math.Floor(float64(currentLevel) / float64(maxLevel) * 100.0))
+		} else {
+			levels[color] = maxLevel
+		}
 	}
 
 	return levels, nil
