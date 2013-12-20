@@ -1,3 +1,9 @@
+check-kyocera-fs5150 (0.2) unstable; urgency=low
+
+  * Made SNMP community configurable
+
+ -- Knut Ahlers <knut@ahlers.me>  Fri, 20 Dec 2013 13:48:59 +0000
+
 check-kyocera-fs5150 (0.1) unstable; urgency=low
 
   * Initial release

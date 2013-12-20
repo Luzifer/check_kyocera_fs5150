@@ -17,9 +17,10 @@ func main() {
 	critical := flag.Int("c", 5, "Threshold of toner left for critical state")
 	warning := flag.Int("w", 10, "Threshold of toner left for warning state")
 	host := flag.String("H", "localhost", "Hostname of Kyocera printer")
+	community := flag.String("C", "public", "SNMP community to use for data queries")
 	flag.Parse()
 
-	levels, err := getTonerLevel(*host)
+	levels, err := getTonerLevel(*host, *community)
 	if err != nil {
 		nagios.Exit(nagios.CRITICAL, err.Error())
 	}
@@ -39,9 +40,9 @@ func main() {
 
 }
 
-func getTonerLevel(hostname string) (tonerlevels, error) {
+func getTonerLevel(hostname, community string) (tonerlevels, error) {
 	levels := make(tonerlevels)
-	snmp, err := gosnmp.NewGoSNMP(hostname, "public", gosnmp.Version2c, 5)
+	snmp, err := gosnmp.NewGoSNMP(hostname, community, gosnmp.Version2c, 5)
 	if err != nil {
 		return nil, err
 	}
