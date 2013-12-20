@@ -16,25 +16,25 @@ GO_COMMAND=$(GO_PACKAGE)/check_kyocera_fs5150
 export GOPATH=$(CURDIR)/debian/go_build
 
 %:
-        dh $@ --parallel
+	dh $@ --parallel
 
 override_dh_auto_configure:
-        mkdir -p $(GOPATH)/src/$(dir $(GO_PACKAGE))
-        ln -s ../../../../../ $(GOPATH)/src/$(GO_PACKAGE)
-        go get `go list -f '{{range .Deps}}{{print .}} {{end}}' $(GO_COMMAND)` $(GO_COMMAND)
+	mkdir -p $(GOPATH)/src/$(dir $(GO_PACKAGE))
+	ln -s ../../../../../ $(GOPATH)/src/$(GO_PACKAGE)
+	go get `go list -f '{{range .Deps}}{{print .}} {{end}}' $(GO_COMMAND)` $(GO_COMMAND)
 
 override_dh_auto_test:
-        go test $(GO_PACKAGE)
+	go test $(GO_PACKAGE)
 
 override_dh_auto_build:
-        go build $(GO_PACKAGE)/check_kyocera_fs5150
+	go build $(GO_PACKAGE)/check_kyocera_fs5150
 
 override_dh_install:
-        dh_install --sourcedir=$(GOPATH)/bin check_kyocera_fs5150 $(DESTDIR)/usr/lib/nagios/plugins
+	dh_install --sourcedir=$(GOPATH)/bin check_kyocera_fs5150 $(DESTDIR)/usr/lib/nagios/plugins
 
 # These are not needed for go programs
 override_dh_pysupport override_dh_pysupport2 override_dh_perl:
 
 override_dh_clean:
-        rm -rf $(GOPATH)
-        dh_clean
+	rm -rf $(GOPATH)
+	dh_clean
