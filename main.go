@@ -26,18 +26,54 @@ func main() {
 	}
 
 	messages := []string{}
-	returnstate := nagios.OK
+	state := NewReturnstate(*critical, *warning)
 	for k, v := range levels {
-		messages = append(messages, fmt.Sprintf("%s is at %d%%", k, v))
-		if v <= *critical {
-			returnstate = nagios.CRITICAL
-		} else if v <= *warning && returnstate != nagios.CRITICAL {
-			returnstate = nagios.WARNING
-		}
+		messages = append(messages, getMessageForTonerLevel(k, v))
+		state.update(v)
 	}
 
-	nagios.Exit(returnstate, strings.Join(messages, ", "))
+	nagios.Exit(state.getStatus(), strings.Join(messages, ", "))
 
+}
+
+type returnstate struct {
+	nagios.Status
+	critical, warning int
+}
+
+func NewReturnstate(critical, warning int) *returnstate {
+	return &returnstate{
+		Status:   nagios.OK,
+		critical: critical,
+		warning:  warning,
+	}
+}
+
+func (state *returnstate) update(level int) {
+	newState := nagios.OK
+	switch {
+	case level <= state.critical:
+		newState = nagios.CRITICAL
+	case level <= state.warning:
+		newState = nagios.WARNING
+	}
+
+	if newState > state.Status {
+		state.Status = newState
+	}
+}
+
+func (state *returnstate) getStatus() nagios.Status {
+	return state.Status
+}
+
+func getMessageForTonerLevel(color string, level int) string {
+	switch {
+	case level >= 0:
+		return fmt.Sprintf("%s is at %d%%", color, level)
+	default:
+		return fmt.Sprintf("%s has an unknown state")
+	}
 }
 
 func getTonerLevel(hostname, community string) (tonerlevels, error) {
