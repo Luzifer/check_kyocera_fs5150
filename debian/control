@@ -1,0 +1,14 @@
+Source: check-kyocera-fs5150
+Section: admin
+Priority: extra
+Maintainer: Knut Ahlers <knut@ahlers.me>
+Build-Depends: debhelper (>= 8.0.0), golang-go, git-core, mercurial
+Standards-Version: 3.9.2
+Homepage: https://github.com/Luzifer/check_kyocera_fs5150
+Vcs-Git: git://github.com/Luzifer/check_kyocera_fs5150
+
+Package: check-kyocera-fs5150
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}, nagios-plugins-common
+Recommends: nagios-plugins
+Description: Nagios plugin for a Kyocera FS5150
