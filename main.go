@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/alouca/gosnmp"
-	"github.com/laziac/go-nagios/nagios"
+	"github.com/nightlyone/go-nagios/nagios"
 )
 
 type tonerlevels map[string]int
