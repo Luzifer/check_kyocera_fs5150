@@ -1,3 +1,16 @@
+check-kyocera-fs5150 (0.3) unstable; urgency=low
+
+  [ Knut Ahlers ]
+  * Ignoring compiled binary
+  * Refactoring: Split out functions
+  * Supporting weird toner cartridge levels
+  * Switched to different host for go-nagios
+
+  [ Mathias Lafeldt ]
+  * Increment version to rebuild package with newer Go release.
+
+ -- Mathias Lafeldt <mathias.lafeldt@gmail.com>  Tue, 12 Aug 2014 13:30:47 +0000
+
 check-kyocera-fs5150 (0.2) unstable; urgency=low
 
   * Made SNMP community configurable
