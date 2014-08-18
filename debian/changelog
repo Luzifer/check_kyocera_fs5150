@@ -1,3 +1,9 @@
+check-kyocera-fs5150 (0.4) unstable; urgency=low
+
+  * Updated code to match API change in GoSNMP which broke the package
+
+ -- Knut Ahlers <knut@ahlers.me> Mon, 18 Aug 2014 13:50:36 +0200
+
 check-kyocera-fs5150 (0.3) unstable; urgency=low
 
   [ Knut Ahlers ]

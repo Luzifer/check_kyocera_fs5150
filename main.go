@@ -94,7 +94,7 @@ func getTonerLevel(hostname, community string) (tonerlevels, error) {
 		if err != nil {
 			return nil, err
 		}
-		color := string(resp.Variables[0].Value.([]byte))
+		color := string(resp.Variables[0].Value.(string))
 
 		resp, err = snmp.Get(maxLevelIdent)
 		if err != nil {
